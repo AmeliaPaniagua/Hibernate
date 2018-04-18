@@ -15,12 +15,12 @@
         <property name="hibernate.show_sql">true</property>     							 <!-- para cuando estemos ejecutando en la consola se muestre las consultas que esta lanzando -->
 		<property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>    	<!-- es obligatorio y se indica la clase de dialecto que se va a usar para nuestras clases -->
 		
-		<property name="hibernate.hbm2ddl.auto">create</property>    						 <!-- le ponemos un valor para que mientras se instancian cree, borre o modifique en la base de datos 
+		<property name="hibernate.hbm2ddl.auto">none</property>    						 <!-- le ponemos un valor para que mientras se instancian cree, borre o modifique en la base de datos 
 																								nosotros le pondremosn create nos va a vaciar la bd y nos la vuelve a crear desde cero-->
 		
 	
 		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Persona"/>	 <!-- Para que sepa cual es la clase que tiene que mapear -->
-	
+		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Estudio"/>
 	
 	</session-factory>
 
