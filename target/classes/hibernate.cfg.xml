@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+		
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:jtds:sqlserver://localhost:1433/HIBERNATE;</property>
+		<property name="hibernate.connection.username">sa</property>
+		<property name="hibernate.connection.password">Temporal22</property>
+		<property name="hibernate.connection.pool_size">2</property>
+	
+		<property name="hibernate.current_session_context_class">thread</property>    		 <!-- contexto de persistencia donde se va a mover, por hilo -->
+        <property name="hibernate.show_sql">true</property>     							 <!-- para cuando estemos ejecutando en la consola se muestre las consultas que esta lanzando -->
+		<property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>    	<!-- es obligatorio y se indica la clase de dialecto que se va a usar para nuestras clases -->
+		
+		<property name="hibernate.hbm2ddl.auto">create</property>    						 <!-- le ponemos un valor para que mientras se instancian cree, borre o modifique en la base de datos 
+																								nosotros le pondremosn create nos va a vaciar la bd y nos la vuelve a crear desde cero-->
+		
+	
+		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Persona"/>	 <!-- Para que sepa cual es la clase que tiene que mapear -->
+	
+	
+	</session-factory>
+
+</hibernate-configuration>
+
+
+
