@@ -1,6 +1,9 @@
 package es.aytos.hibernate.hibernate_dual.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -8,14 +11,16 @@ import javax.persistence.*;
 
 @Entity    //la clase Persona va a ser una entidad
 @Table(name="A_PER") // El nombre de la tabla a la que se va a mapear
-public class Persona implements Serializable {
+public class Persona extends Usuario{
+	//BORRAR
+//	@Id  // este atributo será la pk en la tabla
+//	@GeneratedValue // La pk que es el id se crea por defecto automáticamente
+//	@Column(name="PER_ID")  //nos indica el nombre de la columna de la tabla
+//	private int idPersona;
 	
-	@Id  // este atributo será la pk en la tabla
-	@GeneratedValue // La pk que es el id se crea por defecto automáticamente
-	@Column(name="PER_ID")  //nos indica el nombre de la columna de la tabla
-	private int idPersona;
-
+	
 	@Column(name="PER_NOM", nullable = false, length = 50) // por defecto le indicamos que no puede ser nulo , longitud maxima de 50
+	
 	private String nombre;
 	
 	@Column(name="PER_APE", nullable = false, length = 250)
@@ -32,20 +37,21 @@ public class Persona implements Serializable {
 	@Enumerated(value=EnumType.STRING)  //busca el enumerado y lo inserta dentro de la persona , Enumerated(value=EnumType.STRING)->inserta en la BD el nombre del estadoCivil y si es .ORDINAL lo inserta como número
 	private EstadoCivil estadoCivil;	
 	
+	@ManyToMany(mappedBy ="persona", cascade = {CascadeType.ALL})
+	private List<Direccion> direcciones = new ArrayList<>();
+	
+	
+	@OneToMany(mappedBy = "tlf", cascade = {CascadeType.ALL})
+	private Set<Telefono> telefonos;
+	
+	
+	@OneToOne(mappedBy = "", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private DetallePersona detalle;
 	
 	public Persona() {
 		
 	}
 	
-	public int getIdPersona() {
-		return idPersona;
-	}
-
-
-	public void setIdPersona(int idPersona) {
-		this.idPersona = idPersona;
-	}
-
 
 	public String getNombre() {
 		return nombre;
@@ -95,6 +101,27 @@ public class Persona implements Serializable {
 	public void setEstadoCivil(EstadoCivil estadoCivil) {
 		this.estadoCivil = estadoCivil;
 	}
+
+
+	public List getDirecciones() {
+		return direcciones;
+	}
+
+
+	public void setDirecciones(List<Direccion> direcciones) {
+		this.direcciones = direcciones;
+	}
+
+
+	public Set<Telefono> getTelefonos() {
+		return telefonos;
+	}
+
+
+	public void setTelefonos(Set<Telefono> telefonos) {
+		this.telefonos = telefonos;
+	}
+	
 	
 	
 }
