@@ -3,7 +3,7 @@ package es.aytos.hibernate.hibernate_dual.util;
 import org.hibernate.*;
 import org.hibernate.cfg.*;
 
-//crea una SessionFactory
+//crea una SessionFactory, sesiones de hibernate
 public class HibernateUtil {
 
 	private static SessionFactory miFactoria = construirSessionFactory();

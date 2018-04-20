@@ -25,8 +25,8 @@ public class DetallePersona {
 	@Column(name="DET_MAS")
 	private Boolean mascotas;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "phone_id")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ID_PER") //indicamos la tabla con la k queremos hacer relacion
 	private Persona persona;
 	
 	public DetallePersona() {

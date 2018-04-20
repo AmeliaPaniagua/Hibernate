@@ -15,15 +15,25 @@
         <property name="hibernate.show_sql">true</property>     							 <!-- para cuando estemos ejecutando en la consola se muestre las consultas que esta lanzando -->
 		<property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>    	<!-- es obligatorio y se indica la clase de dialecto que se va a usar para nuestras clases -->
 		
+		
+		
+		<property name="hibernate.cache.use_query_cache">true</property>
+		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.jcache.JCacheRegionFactory</property><!-- clase que vamos a utilizar de factoria de cache -->
+		<property name="hibernate.javax.cache.provider">org.ehcache.jsr107.EhcacheCachingProvider</property>  
+
+		
 		<property name="hibernate.hbm2ddl.auto">create</property>    						 <!-- le ponemos un valor para que mientras se instancian cree, borre o modifique en la base de datos 
 																								nosotros le pondremos create nos va a vaciar la bd y nos la vuelve a crear desde cero-->
 		
 	
-		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Persona"/>	 <!-- Para que sepa cual es la clase que tiene que mapear -->
+		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Persona"/>	 
+		<!-- Para que sepa cual es la clase que tiene que mapear para crear las tablas -->
 		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Cliente"/>
 		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Usuario"/>   <!-- Hay que mapearlo xk le hemos indicado que es una entidad -->
 		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Direccion"/>
 		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Telefono"/>
+		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.DetallePersona"/>
+		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Idioma"/>
 		
 		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Estudio"/>
 	

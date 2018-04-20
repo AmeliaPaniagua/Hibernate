@@ -7,9 +7,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="A_USU")
-@Inheritance(strategy = InheritanceType.JOINED)
+//@MAppedSuperClass -> indica que es clase padre
+@Inheritance(strategy = InheritanceType.JOINED)//con esta etiqueta crea una unica tabla
 public class Usuario implements Serializable {
 
+	// el id va en la clase padre y heredan el id sus hijos
 	@Id
 	@GeneratedValue
 	@Column(name = "USU_ID")

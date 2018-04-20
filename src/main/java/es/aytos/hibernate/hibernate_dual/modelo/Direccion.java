@@ -41,8 +41,8 @@ public class Direccion {
 	private String puerta;
 	
 	
-	@ManyToMany( mappedBy = "direcciones")
-	private List <Persona> personas = new ArrayList();
+	@ManyToMany(mappedBy = "direcciones") //mapperdBy estamos indicando quien es el dueño de la relacion
+	private List<Persona> personas = new ArrayList();
 
 	public Direccion() {
 		
@@ -129,14 +129,17 @@ public class Direccion {
 	}
 
 
-	public List getPersonas() {
+	public List<Persona> getPersonas() {
 		return personas;
 	}
 
 
-	public void setPersonas(List personas) {
+	public void setPersonas(List<Persona> personas) {
 		this.personas = personas;
 	}
+
+
+
 	
 	
 	

@@ -2,13 +2,16 @@ package es.aytos.hibernate.hibernate_dual.pruebas;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import es.aytos.hibernate.hibernate_dual.modelo.EstadoCivil;
 import es.aytos.hibernate.hibernate_dual.modelo.Estudio;
+import es.aytos.hibernate.hibernate_dual.modelo.Genero;
 import es.aytos.hibernate.hibernate_dual.modelo.Persona;
 import es.aytos.hibernate.hibernate_dual.modelo.Telefono;
 import es.aytos.hibernate.hibernate_dual.modelo.Cliente;
+import es.aytos.hibernate.hibernate_dual.modelo.DetallePersona;
 import es.aytos.hibernate.hibernate_dual.modelo.Direccion;
 import es.aytos.hibernate.hibernate_dual.modelo.Titulo;
 import es.aytos.hibernate.hibernate_dual.repositorio.RepositorioCliente;
@@ -21,11 +24,11 @@ public class PruebasPersona {
 	public static void main(String [] args) {
 		
 	
-//		crearEstudio();
 		
-		crearPersona("11111111S", "log1");
+		final Integer idPersona = crearPersona("14621308S", "user1");
+		
 		//crearCliente("11111111D", "log2");
-		crearPersona("22222222R", "log3");
+		//crearPersona("22222222R", "log3");
 		//crearCliente("11111111E", "log4");
 
 		
@@ -38,11 +41,13 @@ public class PruebasPersona {
 //		 eliminarCliente(4);
 
 
-		 
+		 consultarPersona(idPersona);
 		 //comento provisionalmente
 //		consultarPersona("%Miguel%", "", "", null, "Miguel1");
 //		consultarCliente("%Miguel%", "", "", null, "Miguel2");
 		
+		 //ES MIO
+//			crearEstudio();
 		
 	}
 	
@@ -50,13 +55,14 @@ public class PruebasPersona {
 		
 		final Persona persona = new Persona();
 		persona.setNombre("Amelia");
-		persona.setApellidos("Paniagua Gálvez");
+		persona.setApellidos("Paniagua Galvez");
 		persona.setEdad(36);
 		persona.setEstadoCivil(EstadoCivil.SOLTERO);
 		persona.setDni(dni);
 		persona.setFechaAlta(new Date());
 		persona.setLogin(login);
 		persona.setPassword("123");
+		persona.setGenero(Genero.FEMENINO);
 		
 	
 		final Direccion direccion1 = new Direccion();
@@ -74,23 +80,32 @@ public class PruebasPersona {
 		direccion2.setPersonas(Arrays.asList(persona));
 		
 		final Telefono telefono1 = new Telefono();
-		telefono1.setTelefono("610112233");
+		telefono1.setTelefono("650112233");
+		telefono1.setPersona(persona);
 		
 		final Telefono telefono2 = new Telefono();
-		telefono2.setTelefono("610445566");
+		telefono2.setTelefono("600445566");
+		telefono2.setPersona(persona);
 		
 		final Telefono telefono3 = new Telefono();
-		telefono3.setTelefono("610778899");		
+		telefono3.setTelefono("610778899");	
+		telefono3.setPersona(persona);
 		
 
-//		relacion bidireccional one to one
-//		si elimino la persona se elimina el detalle
-//		si elimina el detalle solo eso
+		final DetallePersona detalleP = new DetallePersona();
+		detalleP.setHijos(false);
+		detalleP.setDeporte(true);
+		detalleP.setMascotas(false);
+		
+		persona.setDetalle(detalleP);
 		
 		persona.setDirecciones(Arrays.asList(direccion1, direccion2));
+
+		//se le añade a la lista de telefonos de la persona
+		persona.setTelefonos(new HashSet<>(Arrays.asList(telefono1, telefono2, telefono3)));
 		
-		//persona.setTelefonos(Arrays.asList(telefono1, telefono2, telefono3));
-		//persona.setTelefonos(new HashSet<> )
+		detalleP.setPersona(persona);
+		
 		return RepositorioPersona.crearPersona(persona);
 	}
 	
@@ -158,14 +173,22 @@ public class PruebasPersona {
 	
 	public static void consultarPersona(Integer idPersona) {
 		final Persona persona = RepositorioPersona.consultarNombreCompleto(idPersona);
-		System.out.println(persona.getNombre());
-		System.out.println(persona.getApellidos());
-		System.out.println(persona.getDni());
-		System.out.println(persona.getEstadoCivil());
+//		System.out.println(persona.getNombre());
+//		System.out.println(persona.getApellidos());
+//		System.out.println(persona.getDni());
+//		System.out.println(persona.getEstadoCivil());
+		
+		System.out.println(persona.getGenero().getCodigo());
+		
+		
+		System.out.println(persona.getTelefonos());
+		
+		persona.getTelefonos().stream().forEach(telefono -> System.out.println(telefono.getTelefono()));
 		
 	}
 	
 	public static void consultarPersona(String nombre, String apellidos, String dni, EstadoCivil estadoCivil, String login) {
+		
 		List<Persona> personas = RepositorioPersona.consultar(nombre, apellidos, dni, estadoCivil, login);
 		
 		System.out.println(personas.size());

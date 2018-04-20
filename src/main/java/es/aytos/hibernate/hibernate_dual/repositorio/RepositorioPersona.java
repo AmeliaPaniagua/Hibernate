@@ -46,13 +46,13 @@ public class RepositorioPersona {
 		try {
 			sesion.beginTransaction();
 			
-			sesion.createQuery("Update Persona set per_nom = :=nombre where per_id :=identificador")
-			.setParameter("nombre",  nombre).setParameter("identificador", idPersona).executeUpdate();
+//			sesion.createQuery("Update Persona set per_nom = :=nombre where per_id :=identificador")
+//			.setParameter("nombre",  nombre).setParameter("identificador", idPersona).executeUpdate();
 			
-//			final Persona personaBBDD = (Persona)sesion.createQuery("from Persona where PER_ID = :idPersona") //el :identificador es un parámetro que le pasamos
-//					.setParameter("idPersona", idPersona).uniqueResult(); //aquí sustituye el idPersona por el que le damos
-//			
-//			personaBBDD.setNombre(nombre);
+			final Persona personaBBDD = (Persona) sesion.createQuery("from Usuario USU2 where USU2.idUsuario = :idPersona")
+					.setParameter("idPersona", idPersona).uniqueResult();// Almacena esta persona
+			
+			personaBBDD.setNombre(nombre);
 
 			sesion.getTransaction().commit();
 			
@@ -114,8 +114,12 @@ public class RepositorioPersona {
 
 			sesion.beginTransaction();
 			
-			return (Persona)sesion.createQuery("from Persona where per_id = :idPersona").setParameter("idPersona", idPersona).uniqueResult();
-
+			Persona persona = (Persona)sesion.createQuery("from Uusario where usu.idUsuario = :idPersona").setParameter("idPersona", idPersona).uniqueResult();
+			
+			//me lo llevo a PruebasPersona
+			//persona.getTelefonos().stream().forEach(telefono -> System.out.println(telefono.getTelefono()));
+			
+			return persona;
 
 		} catch (Exception e) {
 			System.out.println("Se ha producido un error con la consulta: " + e);

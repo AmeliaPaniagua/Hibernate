@@ -16,6 +16,11 @@ public class RepositorioUsuario {
 			
 			sesion.createQuery("DELETE USUARIO where USU_ID = :identificador")
 			.setParameter("identificador", idUsuario).executeUpdate();
+			
+//			final Persona usuarioBBDD = (Persona) sesion.createQuery("from Usuario US where US.idUsuario = :idUsuario")
+//					.setParameter("idUsuario", idUsuario).uniqueResult();// Almacena esta persona
+//
+//			sesion.remove(usuarioBBDD);
 
 			sesion.getTransaction().commit(); // Lo guarda en la base de datos
 

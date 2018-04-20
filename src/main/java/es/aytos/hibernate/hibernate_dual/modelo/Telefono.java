@@ -7,7 +7,8 @@ import javax.persistence.*;
 public class Telefono {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mi-secuencia")
+	@SequenceGenerator(name = "mi-secuencia", sequenceName = "Secuencia_bbdd", initialValue = 1, allocationSize = 5)
 	@Column(name="TEL_ID")
 	private Integer idTelefono;
 	
